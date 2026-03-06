@@ -1,0 +1,7 @@
+[project]
+name = "dart-pipeline-gui"
+version = "0.1.0"
+description = "This GUI mimics the workflow outlined in the official doc above, providing a visual interface and thin wrapper around the scripts"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []

@@ -1,0 +1,4 @@
+[server]
+port = 5051
+enableCORS = false
+enableXsrfProtection = false

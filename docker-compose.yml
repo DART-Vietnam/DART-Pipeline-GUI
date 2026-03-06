@@ -1,0 +1,8 @@
+services:
+  dart-pipeline-streamlit:
+    image: ghcr.io/dart-vietnam/dart-pipeline-gui:local-dev
+    env_file: .env
+    volumes:
+      - .streamlit:/.streamlit
+    ports:
+      - "${STREAMLIT_SERVER_PORT}:${STREAMLIT_SERVER_PORT}"
