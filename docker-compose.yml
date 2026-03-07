@@ -5,4 +5,5 @@ services:
     volumes:
       - .streamlit:/.streamlit
     ports:
-      - "${STREAMLIT_SERVER_PORT}:${STREAMLIT_SERVER_PORT}"
+      # - "8051:8051" # default port
+      - "8001:8001" # from .streamlit/config.toml
