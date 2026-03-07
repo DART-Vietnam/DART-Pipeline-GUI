@@ -4,6 +4,9 @@ services:
     env_file: .env
     volumes:
       - .streamlit:/.streamlit
+      - ${HOST_DART_PIPELINE_WORKDIR}/sources/VNM:/root/.local/share/dart-pipeline/sources/VNM
+      - ${HOST_DART_PIPELINE_WORKDIR}/vngp_regrid_era_full.nc:/vngp_regrid_era_full.nc:ro
+      - ${HOST_DART_PIPELINE_WORKDIR}/T2m_r_tp_Vietnam_ERA5.nc:/T2m_r_tp_Vietnam_ERA5.nc:ro
     ports:
       # - "8051:8051" # default port
       - "8001:8001" # from .streamlit/config.toml
