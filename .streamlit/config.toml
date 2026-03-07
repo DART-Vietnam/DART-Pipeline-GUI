@@ -1,2 +1,3 @@
 [server]
 port = 8001
+corsAllowedOrigins = ["https://pipeline.dartdengue.org"]
