@@ -439,6 +439,18 @@ wheels = [
 ]
 
 [[package]]
+name = "cloup"
+version = "3.0.8"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "click" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/46/cf/09a31f0f51b5c8ef2343baf37c35a5feb4f6dfdcbd0592a014baf837f2e4/cloup-3.0.8.tar.gz", hash = "sha256:f91c080a725196ddf74feabd6250266f466e97fc16dfe21a762cf6bc6beb3ecb", size = 229657, upload-time = "2025-08-05T02:25:02.83Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/45/0a/494a923f90cd97cdf4fb989cfd06ac0c6745f6dfb8adcef1b7f99d3c7834/cloup-3.0.8-py2.py3-none-any.whl", hash = "sha256:6fe9474dc44fa06f8870e9c797f005de1e3ef891ddc1a9612d9b58598a038323", size = 54647, upload-time = "2025-08-05T02:25:01.536Z" },
+]
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 source = { registry = "https://pypi.org/simple" }
@@ -648,6 +660,17 @@ wheels = [
 ]
 
 [[package]]
+name = "dart-bias-correct"
+version = "0.1.0"
+source = { git = "https://github.com/DART-Vietnam/dart-bias-correct#3a3178f114ddd4d4e9dbfcb23d2237a0026105f4" }
+dependencies = [
+    { name = "geoglue" },
+    { name = "metpy" },
+    { name = "python-cmethods" },
+    { name = "xclim" },
+]
+
+[[package]]
 name = "dart-pipeline"
 version = "0.1.0"
 source = { git = "https://github.com/kraemer-lab/DART-Pipeline#28989ca55b72dd21f4d3b640749335b596d09383" }
@@ -682,6 +705,7 @@ name = "dart-pipeline-gui"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "dart-bias-correct" },
     { name = "dart-pipeline" },
 ]
 
@@ -693,7 +717,10 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "dart-pipeline", git = "https://github.com/kraemer-lab/DART-Pipeline" }]
+requires-dist = [
+    { name = "dart-bias-correct", git = "https://github.com/DART-Vietnam/dart-bias-correct" },
+    { name = "dart-pipeline", git = "https://github.com/kraemer-lab/DART-Pipeline" },
+]
 
 [package.metadata.requires-dev]
 dev = [
@@ -2134,6 +2161,22 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/3c/a2/45497d197df18186fbb3fa665fcc6ac179d392642ce36d23ad919c77e6ed/pyquadkey2-0.3.2.tar.gz", hash = "sha256:0c41a4b030169a772bb2b7dab7ebb9b5598e4f9a88378357a1efb69e7ab6f8f6", size = 70319, upload-time = "2024-12-31T13:05:36.519Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/2b/6f/4f73e9195e4f5559e26a5a7aae58c5ed9096f7e85cac597eac7f510103f5/pyquadkey2-0.3.2-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:7cf470a0d2b6947fa5fbd5124d964a9916f8eb4b4585eec19b08d42bb16762c2", size = 47086, upload-time = "2024-12-31T13:05:33.785Z" },
+]
+
+[[package]]
+name = "python-cmethods"
+version = "2.3.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "click" },
+    { name = "cloup" },
+    { name = "netcdf4" },
+    { name = "numpy" },
+    { name = "xarray" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9f/e1/2f64c27baa658e7abdc7877e36815354c420bcd9146f75fa137f070c26bc/python_cmethods-2.3.2.tar.gz", hash = "sha256:1b15d4fb4b79a4508375a463180d05373228f5d721208ace9168b9ce679f1f8d", size = 50740, upload-time = "2025-11-14T05:49:33.209Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0b/0e/daf100df83c6d2a9e41df4da9bc088b6b11d405b3a0e2d27564a57714e70/python_cmethods-2.3.2-py3-none-any.whl", hash = "sha256:ef1761d6b73ab9b4b46b9100a2dc1586e4f0741b09b803515a771ea3b6845473", size = 33779, upload-time = "2025-11-14T05:49:32.171Z" },
 ]
 
 [[package]]
