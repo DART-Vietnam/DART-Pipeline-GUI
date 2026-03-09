@@ -1,6 +1,10 @@
+import logging
+
 import streamlit as st
 
 from dart_pipeline_gui.utils import prereqs_check
+
+dart_pipeline_logger = logging.getLogger("dart_pipeline")
 
 
 def run():

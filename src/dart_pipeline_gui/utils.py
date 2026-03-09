@@ -13,7 +13,7 @@ from streamlit.delta_generator import DeltaGenerator
 from streamlit.runtime.state import SessionStateProxy
 from tree_sitter import Language, Node, Parser
 
-from .types import ASTValueNode, PreReqInfo
+from .types import ASTValueNode, PreReqInfo, StreamlitLogHandler
 
 prereq_py_libs = ["xarray", "rasterio", "cdsapi"]
 prereq_execs = ["dart-bias-correct", "cdo", "curl"]
@@ -188,3 +188,18 @@ def run_subproc(
     subproc.wait()
 
     return subproc
+
+
+# Set up logging to capture all info level logs from the root logger
+def setup_logging():
+    root_logger = logging.getLogger()  # Get the root logger
+    log_container = st.code(
+        "", language="bash", height=300
+    )  # Create a container within which we display logs
+    handler = StreamlitLogHandler(log_container)
+    handler.setLevel(logging.INFO)
+    handler.setFormatter(
+        logging.Formatter("%(asctime)s %(levelname)s [%(name)s] %(message)s")
+    )
+    root_logger.addHandler(handler)
+    return handler

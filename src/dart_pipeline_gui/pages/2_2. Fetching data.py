@@ -7,9 +7,10 @@ import streamlit as st
 from dart_pipeline import parse_params
 from dart_pipeline.metrics import get
 from dart_pipeline.paths import get_path
-from streamlit.delta_generator import DeltaGenerator
 
-from gui.utils import print_current_config
+from src.dart_pipeline_gui.utils import print_current_config, setup_logging
+
+FETCH_IN_PROGRESS = False
 
 
 def config_has_error(fetch_start: int, fetch_end: int):
@@ -67,13 +68,20 @@ def all_data_exist(
 def fetch_missing_data(
     ISO3: str,
     ADMIN: str,
-    year: str,
+    year_start: int,
+    year_end: int,
     metric: Literal["worldpop.pop_count", "era5"],
-    st_console: DeltaGenerator,
 ):
-    parsed_subargs = parse_params([f"{ISO3}-{ADMIN}", year]).as_dict()
+    global FETCH_IN_PROGRESS
+    handler = setup_logging()
+    for year in range(year_start, year_end + 1):
+        parsed_subargs = parse_params([f"{ISO3}-{ADMIN}", f"{year}"]).as_dict()
+        with st.spinner("Fetching data..."):
+            FETCH_IN_PROGRESS = True
+            get(metric, skip_process=True, **parsed_subargs)
 
-    get(metric, skip_process=True, **parsed_subargs)
+    FETCH_IN_PROGRESS = False
+    handler.clear_logs()
 
 
 def run():
@@ -111,35 +119,33 @@ def run():
 
     #
     #############
+    global FETCH_IN_PROGRESS
     st.subheader("Fetch data")
     col1, col2 = st.columns([1, 1])
     with col1:
         fetch_worldpop_btn = st.button(
             "⬇️ Fetch missing WorldPop data",
             key="fetch_worldpop_btn",
-            disabled=pop_all_exist,
+            disabled=(pop_all_exist or FETCH_IN_PROGRESS),
         )
     with col2:
         fetch_era5_btn = st.button(
             "⬇️ Fetch missing ERA5 data",
             key="fetch_era5_btn",
-            disabled=era_all_exist,
+            disabled=(era_all_exist or FETCH_IN_PROGRESS),
         )
 
     #
     #############
-    st.session_state["log"] = ""
-    st_console = st.code(st.session_state["log"], language="text", height=300)
+    if fetch_era5_btn:
+        st.session_state["log"] = ""
+        fetch_missing_data(ISO3, ADMIN, min(era_missing), max(era_missing), "era5")
 
     if fetch_worldpop_btn:
-        for year in pop_missing:
-            st.session_state["log"] = ""
-            fetch_missing_data(ISO3, ADMIN, str(year), "worldpop.pop_count", st_console)
-
-    if fetch_era5_btn:
-        for year in era_missing:
-            st.session_state["log"] = ""
-            fetch_missing_data(ISO3, ADMIN, str(year), "era5", st_console)
+        st.session_state["log"] = ""
+        fetch_missing_data(
+            ISO3, ADMIN, min(pop_missing), max(pop_missing), "worldpop.pop_count"
+        )
 
 
 run()
