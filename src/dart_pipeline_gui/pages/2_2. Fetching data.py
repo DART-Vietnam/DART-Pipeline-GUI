@@ -8,7 +8,7 @@ from dart_pipeline import parse_params
 from dart_pipeline.metrics import get
 from dart_pipeline.paths import get_path
 
-from src.dart_pipeline_gui.utils import print_current_config, setup_logging
+from dart_pipeline_gui.utils import print_current_config, setup_logging
 
 FETCH_IN_PROGRESS = False
 

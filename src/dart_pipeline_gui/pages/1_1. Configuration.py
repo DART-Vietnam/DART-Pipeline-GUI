@@ -14,7 +14,7 @@ from dart_pipeline_gui.utils import (
 CONFIG_SH_PATH: Path = (
     Path(os.environ["CONFIG_SH_PATH"])
     if "CONFIG_SH_PATH" in os.environ
-    else (Path(__file__).parents[2] / "config.sh")
+    else (Path(__file__).parents[3] / "config.sh")
 )
 
 

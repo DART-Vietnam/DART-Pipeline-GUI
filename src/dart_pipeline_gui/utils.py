@@ -1,5 +1,6 @@
 import importlib
 import importlib.metadata
+import logging
 import shutil
 import subprocess
 from subprocess import Popen

@@ -2,7 +2,7 @@ import os
 
 import streamlit as st
 
-from gui.utils import print_current_config, run_subproc
+from dart_pipeline_gui.utils import print_current_config, run_subproc
 
 
 def run():
