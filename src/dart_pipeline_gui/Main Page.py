@@ -1,5 +1,6 @@
 import streamlit as st
-from utils import prereqs_check
+
+from dart_pipeline_gui.utils import prereqs_check
 
 
 def run():
