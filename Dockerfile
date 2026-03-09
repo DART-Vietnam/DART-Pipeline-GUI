@@ -9,6 +9,6 @@ RUN apt update && \
     cdo curl
 
 WORKDIR /
-COPY gui ./gui
+COPY src ./src
 
-ENTRYPOINT [ "uv", "run", "streamlit", "run", "/gui/Main Page.py" ]
+ENTRYPOINT [ "uv", "run", "python", "-m", "streamlit", "run", "src/dart_pipeline_gui/Main Page.py" ]
