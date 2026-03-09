@@ -16,6 +16,4 @@ WORKDIR /app
 RUN uv sync --all-extras
 RUN uv pip install -e .
 
-WORKDIR /
-
-ENTRYPOINT [ "uv", "streamlit", "run", "./src/dart_pipeline_gui/Main Page.py" ]
+ENTRYPOINT [ "uv", "run", "streamlit", "run", "./src/dart_pipeline_gui/Main Page.py" ]
