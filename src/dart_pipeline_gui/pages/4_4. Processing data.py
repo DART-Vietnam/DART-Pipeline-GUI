@@ -1,6 +1,19 @@
 import streamlit as st
+from dart_pipeline import parse_params
+from dart_pipeline.metrics import process
 
-from dart_pipeline_gui.utils import print_current_config, run_subproc
+from dart_pipeline_gui.utils import print_current_config, setup_logging
+
+
+def run_era5_processing(ISO3: str, ADMIN: str, year_range: str):
+    handler = setup_logging()
+    parsed_subargs = parse_params(
+        [f"{ISO3}-{ADMIN}", f"{year_range}", "temporal_resolution=weekly"]
+    ).as_dict()
+    with st.spinner("Processing ERA5 data for weekly resolution..."):
+        process("era5", **parsed_subargs)
+
+    handler.clear_logs()
 
 
 def run():
@@ -59,21 +72,8 @@ def run():
     st.subheader("Process data")
     proc_dat = st.button("Click to process data", key="proc_dat_btn")
 
-    st.session_state["log"] = ""
-    st_console = st.code(st.session_state["log"], language="bash", height=300)
-
     if proc_dat:
-        st.session_state["log"] = ""
-        subproc = run_subproc(
-            cmd_list,
-            st_console,
-            st.session_state,
-        )
-
-        if subproc.returncode == 0:
-            st.write("Data processing finished")
-        else:
-            st.write(f"Data processing killed with {subproc.returncode=}")
+        run_era5_processing(ISO3, ADMIN, f"{START_YEAR}-{END_YEAR}")
 
 
 run()
