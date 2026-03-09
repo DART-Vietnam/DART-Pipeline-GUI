@@ -1,8 +1,12 @@
 import os
+from pathlib import Path
 
 import streamlit as st
+from dart_bias_correct import bias_correct_precipitation_from_paths
 
-from dart_pipeline_gui.utils import print_current_config, run_subproc
+from dart_pipeline_gui.utils import print_current_config, setup_logging
+
+FETCH_IN_PROGRESS = False
 
 
 def run():
@@ -21,8 +25,8 @@ def run():
     config_vars = st.session_state["config_vars"]
     fetch_start = int(config_vars["START_YEAR"].value) - 1
     fetch_end = int(config_vars["END_YEAR"].value) + 1
-    BC_PRECIP_REF = config_vars["BC_PRECIP_REF"].value
-    BC_HISTORICAL_OBS = config_vars["BC_HISTORICAL_OBS"].value
+    BC_PRECIP_REF = Path(config_vars["BC_PRECIP_REF"].value)
+    BC_HISTORICAL_OBS = Path(config_vars["BC_HISTORICAL_OBS"].value)
     ISO3 = config_vars["ISO3"].value
 
     #
@@ -71,34 +75,26 @@ def run():
 
     #
     #############
+    global FETCH_IN_PROGRESS
     st.subheader("Run bias correction")
-    run_bc = st.button("Click to run bias correction", key="run_bc_btn")
-
-    st.session_state["log"] = ""
-    st_console = st.code(st.session_state["log"], language="bash", height=300)
+    run_bc = st.button(
+        "Click to run bias correction", key="run_bc_btn", disabled=FETCH_IN_PROGRESS
+    )
 
     if run_bc:
+        handler = setup_logging()
         for year in range(fetch_start, fetch_end + 1, 1):
-            st.session_state["log"] = ""
-            subproc = run_subproc(
-                [
-                    "dart-bias-correct",
-                    "precipitation",
+            with st.spinner("Performing precipitation bias correction..."):
+                FETCH_IN_PROGRESS = True
+                bias_correct_precipitation_from_paths(
                     BC_PRECIP_REF,
                     BC_HISTORICAL_OBS,
                     f"{ISO3}-{year}",
-                    f"--clip-precip-percentile={BC_CLIP_PRECIP_PERCENTILE}",
-                ],
-                st_console,
-                st.session_state,
-            )
-
-            if subproc.returncode == 0:
-                st.write(f"Bias correction for {year=} finished")
-            else:
-                st.write(
-                    f"Bias correction for {year=} killed with {subproc.returncode=}"
+                    BC_CLIP_PRECIP_PERCENTILE,
                 )
+
+        FETCH_IN_PROGRESS = False
+        handler.clear_logs()
 
 
 run()
