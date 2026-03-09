@@ -138,11 +138,9 @@ def run():
     #
     #############
     if fetch_era5_btn:
-        st.session_state["log"] = ""
         fetch_missing_data(ISO3, ADMIN, min(era_missing), max(era_missing), "era5")
 
     if fetch_worldpop_btn:
-        st.session_state["log"] = ""
         fetch_missing_data(
             ISO3, ADMIN, min(pop_missing), max(pop_missing), "worldpop.pop_count"
         )
