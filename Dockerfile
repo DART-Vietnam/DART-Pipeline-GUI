@@ -7,7 +7,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
     apt install -y --no-install-recommends \
-    cdo curl && \
+    cdo curl git && \
     rm -rf /var/lib/apt/lists/*
 
 COPY . /app
