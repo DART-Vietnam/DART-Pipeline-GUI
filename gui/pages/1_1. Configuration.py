@@ -1,15 +1,11 @@
 import os
-import sys
 from pathlib import Path
 from typing import Dict
 
 import streamlit as st
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-if str(REPO_ROOT) not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT))
-from gui.types import ASTValueNode  # noqa: E402
-from gui.utils import (  # noqa: E402
+from ..types import ASTValueNode
+from ..utils import (
     BASH_PARSER,
     assign_ast_vars,
     extract_ast_vars,

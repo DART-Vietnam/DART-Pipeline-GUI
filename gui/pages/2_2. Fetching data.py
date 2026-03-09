@@ -4,12 +4,12 @@ from datetime import datetime
 from typing import Literal, Tuple
 
 import streamlit as st
-from streamlit.delta_generator import DeltaGenerator
-
 from dart_pipeline import parse_params
 from dart_pipeline.metrics import get
 from dart_pipeline.paths import get_path
-from gui.utils import print_current_config, run_subproc
+from streamlit.delta_generator import DeltaGenerator
+
+from gui.utils import print_current_config
 
 
 def config_has_error(fetch_start: int, fetch_end: int):
@@ -71,25 +71,9 @@ def fetch_missing_data(
     metric: Literal["worldpop.pop_count", "era5"],
     st_console: DeltaGenerator,
 ):
-    if metric == "worldpop.pop_count":
-        metric_subargs = [f"{ISO3}-{ADMIN}", year]
-    elif metric == "era5":
-        metric_subargs = [ISO3, year]
-    else:
-        raise ValueError
+    parsed_subargs = parse_params([f"{ISO3}-{ADMIN}", year]).as_dict()
 
-    subproc = run_subproc(
-        ["uv", "run", "dart-pipeline", "get", metric, *metric_subargs],
-        st_console,
-        st.session_state,
-    )
-
-    if subproc.returncode == 0:
-        st.write(f"Data fetching for {metric=} {year=} finished without error")
-    else:
-        st.write(
-            f"Data fetching for {metric=} {year=} killed with {subproc.returncode=}"
-        )
+    get(metric, skip_process=True, **parsed_subargs)
 
 
 def run():
