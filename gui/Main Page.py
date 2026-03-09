@@ -1,19 +1,9 @@
-import sys
-from pathlib import Path
-
 import streamlit as st
-from streamlit.logger import get_logger
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
-if str(REPO_ROOT) not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT))
-from gui.utils import prereqs_check  # noqa: E402
-
-LOGGER = get_logger(__name__)
-prereqs_libs_df = prereqs_check()
+from utils import prereqs_check
 
 
 def run():
+    prereqs_libs_df = prereqs_check()
     st.set_page_config(
         page_title="DART-Pipeline GUI",
         page_icon="⚙️",
