@@ -1,14 +1,21 @@
-FROM ghcr.io/kraemer-lab/dart-pipeline:v0.1.2
+FROM python:3.13-slim-trixie
 
-# add streamlit and other deps
-RUN uv sync --all-extras
-RUN uv tool install git+https://github.com/DART-Vietnam/dart-bias-correct
+# setup uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
+# setup sys deps for `pyproj` and `numpy`
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
     apt install -y --no-install-recommends \
-    cdo curl
+    cdo curl && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY . /app
+WORKDIR /app
+
+RUN uv sync --all-extras
+RUN uv pip install -e .
 
 WORKDIR /
-COPY src ./src
 
-ENTRYPOINT [ "uv", "run", "python", "-m", "streamlit", "run", "src/dart_pipeline_gui/Main Page.py" ]
+ENTRYPOINT [ "uv", "streamlit", "run", "./src/dart_pipeline_gui/Main Page.py" ]
