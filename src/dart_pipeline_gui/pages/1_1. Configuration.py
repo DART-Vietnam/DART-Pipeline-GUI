@@ -4,8 +4,8 @@ from typing import Dict
 
 import streamlit as st
 
-from ..types import ASTValueNode
-from ..utils import (
+from dart_pipeline_gui.types import ASTValueNode
+from dart_pipeline_gui.utils import (
     BASH_PARSER,
     assign_ast_vars,
     extract_ast_vars,
