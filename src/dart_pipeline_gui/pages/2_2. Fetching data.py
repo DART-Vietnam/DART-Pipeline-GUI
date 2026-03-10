@@ -86,10 +86,10 @@ def fetch_missing_data(
 
 def run():
     st.set_page_config(
-        page_title="DART-Pipeline Fetching data",
+        page_title="DART-Data Fetching data",
         page_icon="⚙️",
     )
-    st.title("DART-Pipeline Fetching data")
+    st.title("DART-Data Fetching data")
     st.write(
         "Fetches and prepares population and weather data for a specified ISO country code and administrative level, using the provided configuration"
     )

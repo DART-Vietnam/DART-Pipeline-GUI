@@ -61,10 +61,10 @@ def collect_input_vars() -> Dict[str, str]:
 
 def run():
     st.set_page_config(
-        page_title="DART-Pipeline Configuration",
+        page_title="DART-Data Configuration",
         page_icon="⚙️",
     )
-    st.title("DART-Pipeline Configuration")
+    st.title("DART-Data Configuration")
     st.write(
         "**Currently there is no input sanitisation**. Please be responsible and careful with your inputs or the pipeline won't run as expected"
     )

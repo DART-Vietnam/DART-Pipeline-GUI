@@ -18,10 +18,10 @@ def run_era5_processing(ISO3: str, ADMIN: str, year_range: str):
 
 def run():
     st.set_page_config(
-        page_title="DART-Pipeline Processing data",
+        page_title="DART-Data Processing data",
         page_icon="⚙️",
     )
-    st.title("DART-Pipeline Processing data")
+    st.title("DART-Data Processing data")
     st.markdown(
         """
         Processes weather data for a configured region and time range. This includes:

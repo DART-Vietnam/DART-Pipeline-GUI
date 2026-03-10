@@ -11,10 +11,10 @@ FETCH_IN_PROGRESS = False
 
 def run():
     st.set_page_config(
-        page_title="DART-Pipeline Bias correction",
+        page_title="DART-Data Bias correction",
         page_icon="⚙️",
     )
-    st.title("DART-Pipeline Bias correction")
+    st.title("DART-Data Bias correction")
     st.write(
         "Applies bias correction to precipitation data using the `dart-bias-correct` tool. This process adjusts modeled precipitation values to better match historical observations."
     )
