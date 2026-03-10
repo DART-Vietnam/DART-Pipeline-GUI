@@ -10,7 +10,8 @@ RUN apt update && apt install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 ## Copy in uv settings and deps
-COPY src/ pyproject.toml uv.lock numpy-2.4.3-cp312-cp312-linux_x86_64.whl /app/
+COPY pyproject.toml uv.lock numpy-2.4.3-cp312-cp312-linux_x86_64.whl /app/
+COPY src/ /app/src
 WORKDIR /app
 
 ## Setup uv
