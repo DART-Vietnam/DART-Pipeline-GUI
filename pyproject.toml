@@ -7,11 +7,13 @@ requires-python = ">=3.11"
 dependencies = [
     "dart-bias-correct",
     "dart-pipeline",
+    "numpy",
 ]
 
 [tool.uv.sources]
 dart-pipeline = { git = "https://github.com/kraemer-lab/DART-Pipeline" }
 dart-bias-correct = { git = "https://github.com/DART-Vietnam/dart-bias-correct" }
+numpy = { path = "numpy-2.4.3-cp312-cp312-linux_x86_64.whl" }
 
 [tool.setuptools]
 package-dir = { "" = "src" }
