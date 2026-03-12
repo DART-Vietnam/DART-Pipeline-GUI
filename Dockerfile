@@ -6,7 +6,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 ## Install DART-Pipeline deps
 RUN apt update && apt install -y --no-install-recommends \
-    cdo curl git && \
+    cdo curl git build-essential && \
     rm -rf /var/lib/apt/lists/*
 
 ## Copy in uv settings and deps
